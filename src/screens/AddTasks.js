@@ -1,3 +1,5 @@
+import AppLoading from "expo-app-loading";
+import { useFonts } from "expo-font";
 import React, { useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import AddItem from "../components/AddItem"
@@ -15,6 +17,12 @@ const AddTasks = ({ tasksList, setTasksList }) => {
     const onHandlerChangeItem = (task) => {
         setNewTask(task)
     }
+
+    const [fontLoaded] = useFonts({
+        pacifico: require('../../assets/Fonts/LeagueSpartan-Regular.ttf'),
+    })
+
+    if (!fontLoaded) {return <AppLoading />}
 
     return (
         <View style={styles.container}>
@@ -41,6 +49,7 @@ const styles = StyleSheet.create({
         paddingTop: 80,
     },
     title: {
+        fontFamily: 'pacifico',
         marginBottom: 30,
         fontSize: 30,
         fontWeight: "500",

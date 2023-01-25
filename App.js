@@ -10,17 +10,15 @@ export default function App() {
   // Complete tasks
   const [completeList, setCompleteList] = useState([])
 
-  // const [fontLoaded] = useFonts()
-
   const viewTasks = () => {
     setView(!view);
   }
 
   return (
     <View style={styles.container}>
-      {view ? <AddTasks tasksList={tasksList} setTasksList={setTasksList} /> : <ViewTasks tasksList={tasksList} setTasksList={setTasksList} completeList={completeList} setCompleteList={setCompleteList} />}
-      <View style={styles.buttonContainer}>
-          <Button title={view ? "SEE TASKS": "NEW TASK"} onPress={viewTasks}/>
+      {!view ? <AddTasks tasksList={tasksList} setTasksList={setTasksList} /> : <ViewTasks tasksList={tasksList} setTasksList={setTasksList} completeList={completeList} setCompleteList={setCompleteList} />}
+      <View>
+          <Button title={ !view ? "SEE TASKS": "NEW TASK" } onPress={viewTasks}/>
       </View>
     </View>
   )
@@ -31,9 +29,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFF",
   },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  }
 })
