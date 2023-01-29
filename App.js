@@ -1,32 +1,7 @@
 import React, { useState } from "react"
-import { StyleSheet, View, Button } from "react-native"
-import AddTasks from "./src/screens/AddTasks"
-import ViewTasks from "./src/screens/ViewTasks"
+import TasksNavigator from "./src/navigation/TasksNavigator"
 
 export default function App() {
-  const [view, setView] = useState(false);
-  // Pending tasks
-  const [tasksList, setTasksList] = useState([])
-  // Complete tasks
-  const [completeList, setCompleteList] = useState([])
 
-  const viewTasks = () => {
-    setView(!view);
-  }
-
-  return (
-    <View style={styles.container}>
-      {!view ? <AddTasks tasksList={tasksList} setTasksList={setTasksList} /> : <ViewTasks tasksList={tasksList} setTasksList={setTasksList} completeList={completeList} setCompleteList={setCompleteList} />}
-      <View>
-          <Button title={ !view ? "SEE TASKS": "NEW TASK" } onPress={viewTasks}/>
-      </View>
-    </View>
-  )
+  return <TasksNavigator />
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF",
-  },
-})

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, FlatList } from "react-native"
 import Modal from "../components/Modal"
 import ModalComplete from "../components/ModalComplete"
 
-const ViewTasks = ({ tasksList, setTasksList, completeList, setCompleteList }) => {
+const ViewTasks = ({ tasksList, setTasksList, completeList, setCompleteList, navigation }) => {
 
     // Pending tasks
     const [itemSelected, setItemSelected] = useState("")
@@ -58,40 +58,42 @@ const ViewTasks = ({ tasksList, setTasksList, completeList, setCompleteList }) =
 
     return (
         <View style={styles.container}>
-            {/* Pending tasks */}
-            <View style={styles.listContainer}>
-                <Text style={styles.subtitle}>Pending Tasks</Text>
-                <FlatList
-                    data={tasksList}
-                    renderItem={renderItem}
-                    keyExtractor={item => item}
-                    style={styles.listItem}
+            <View style={styles.container}>
+                {/* Pending tasks */}
+                <View style={styles.listContainer}>
+                    <Text style={styles.subtitle}>Pending Tasks</Text>
+                    <FlatList
+                        data={tasksList}
+                        renderItem={renderItem}
+                        keyExtractor={item => item}
+                        style={styles.listItem}
+                    />
+                </View>
+                <Modal
+                    isVisible={modalVisible}
+                    itemSelected={itemSelected}
+                    actionCompleteItem={() => onHandlerComplete(itemSelected)}
+                    actionDeleteItem={() => onHandlerDelete(itemSelected)}
+                    onDismissModal={setModalVisible}
                 />
-            </View>
-            <Modal
-                isVisible={modalVisible}
-                itemSelected={itemSelected}
-                actionCompleteItem={() => onHandlerComplete(itemSelected)}
-                actionDeleteItem={() => onHandlerDelete(itemSelected)}
-                onDismissModal={setModalVisible}
-            />
 
-            {/* Complete tasks */}
-            <View style={styles.listContainer}>
-                <Text style={styles.subtitle}>Complete Tasks</Text>
-                <FlatList
-                    data={completeList}
-                    renderItem={renderItemComplete}
-                    keyExtractor={item => item}
-                    style={styles.listItem}
+                {/* Complete tasks */}
+                <View style={styles.listContainer}>
+                    <Text style={styles.subtitle}>Complete Tasks</Text>
+                    <FlatList
+                        data={completeList}
+                        renderItem={renderItemComplete}
+                        keyExtractor={item => item}
+                        style={styles.listItem}
+                    />
+                </View>
+                <ModalComplete
+                    isVisible={modalCompleteVisible}
+                    itemSelected={itemCompleteSelected}
+                    actionDeleteItem={() => onHandlerDeleteComplete(itemCompleteSelected)}
+                    onDismissModal={setModalCompleteVisible}
                 />
             </View>
-            <ModalComplete
-                isVisible={modalCompleteVisible}
-                itemSelected={itemCompleteSelected}
-                actionDeleteItem={() => onHandlerDeleteComplete(itemCompleteSelected)}
-                onDismissModal={setModalCompleteVisible}
-            />
         </View>
     )
 }
