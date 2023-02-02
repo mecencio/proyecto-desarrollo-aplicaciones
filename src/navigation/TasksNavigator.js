@@ -86,7 +86,15 @@ export default TasksNavigator = () => {
         <NavigationContainer>
             <Tab.Navigator initialRouteName="Home">
                 {arrayList.map(item => 
-                    <Tab.Screen key={item} name={item.title}>
+                    <Tab.Screen 
+                        key={item} 
+                        name={item.title}
+                        options={{
+                            tabBarActiveTintColor: "#3b8ff6",
+                            tabBarLabelStyle: {fontSize: 16},
+                            tabBarStyle: {marginTop: 5}
+                        }}
+                    >
                         {() => <ViewTasks 
                                     newList={HandlerNewList}
                                     deleteList={HandlerDeleteList}
